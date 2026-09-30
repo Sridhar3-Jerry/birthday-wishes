@@ -7,23 +7,25 @@ import { triggerRomanticConfetti } from '../utils/confetti';
 
 const navItems = [
   { label: 'Home', target: '#hero' },
-  { label: 'Countdown', target: '#countdown' },
-  { label: 'Message', target: '#letter' },
+  { label: 'Open Heart', target: '#open-heart' },
+  { label: 'Love Meter', target: '#love-slider' },
+  { label: 'Secrets', target: '#mystery-doors' },
+  { label: 'Our Universe', target: '#our-universe' },
   { label: 'Memories', target: '#memories' },
-  { label: 'Gallery', target: '#gallery' },
-  { label: 'Reasons', target: '#reasons' },
+  { label: 'Polaroids', target: '#polaroids' },
   { label: 'Make a Wish', target: '#cake' },
+  { label: 'Playlist', target: '#playlist' },
   { label: 'Surprise', target: '#surprise' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onLogoClick }) {
   const { isDark, toggleTheme } = useTheme();
   const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'countdown', 'letter', 'memories', 'gallery', 'reasons', 'cake', 'surprise'];
+      const sections = ['hero', 'open-heart', 'love-slider', 'mystery-doors', 'our-universe', 'memories', 'polaroids', 'cake', 'playlist', 'surprise'];
       const scrollPosition = window.scrollY + 220;
 
       for (const sectionId of sections) {
@@ -52,21 +54,25 @@ export default function Navbar() {
     }
   };
 
+  const handleBrandClick = (e) => {
+    e.preventDefault();
+    if (onLogoClick) onLogoClick();
+    scrollTo('#hero');
+  };
+
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-40 px-3 sm:px-6 py-3.5 transition-all duration-300 pointer-events-none">
-        <div className="max-w-6xl mx-auto flex items-center justify-between pointer-events-auto">
+        <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
           
-          {/* Brand / Name Badge (Left) */}
+          {/* Brand / Name Badge with Easter Egg click handler */}
           <motion.a
             href="#hero"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollTo('#hero');
-            }}
+            onClick={handleBrandClick}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-2.5 px-4 py-2 rounded-full glass-pill border border-teal-300/80 dark:border-teal-500/40 hover:border-pink-400 shadow-md transition-all group cursor-pointer bg-white/95 dark:bg-[#130d20]/95"
+            title="Click to go top (or tap 5x for a secret ❤️)"
           >
             <div className="relative flex items-center justify-center">
               <Heart className="w-4 h-4 text-rose-500 fill-rose-500 group-hover:scale-125 transition-transform" />
@@ -81,7 +87,7 @@ export default function Navbar() {
           <motion.nav
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="hidden lg:flex items-center gap-1 p-1.5 rounded-full glass-pill border border-teal-300/70 dark:border-white/15 shadow-xl bg-white/95 dark:bg-[#130d20]/95"
+            className="hidden xl:flex items-center gap-1 p-1.5 rounded-full glass-pill border border-teal-300/70 dark:border-white/15 shadow-xl bg-white/95 dark:bg-[#130d20]/95"
           >
             {navItems.map((item) => {
               const isActive = activeSection === item.target.replace('#', '');
@@ -89,7 +95,7 @@ export default function Navbar() {
                 <button
                   key={item.target}
                   onClick={() => scrollTo(item.target)}
-                  className={`relative px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 cursor-pointer ${
+                  className={`relative px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 cursor-pointer ${
                     isActive
                       ? 'text-teal-950 dark:text-teal-200 font-extrabold'
                       : 'text-[#1e132c] dark:text-slate-200 hover:text-teal-700 dark:hover:text-white hover:bg-teal-50 dark:hover:bg-white/10'
@@ -108,7 +114,7 @@ export default function Navbar() {
             })}
           </motion.nav>
 
-          {/* Right Action Controls: Light/Dark Theme Switcher + Surprise Burst */}
+          {/* Right Action Controls: Light/Dark Theme Switcher + Surprise Burst + Mobile Menu */}
           <div className="flex items-center gap-2">
             {/* Theme Toggle Button */}
             <motion.button
@@ -138,10 +144,10 @@ export default function Navbar() {
               <span>Surprise ✨</span>
             </motion.button>
 
-            {/* Mobile Menu Toggle Button */}
+            {/* Mobile / Tablet Menu Toggle Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2.5 rounded-full glass-pill text-[#1e132c] dark:text-white border border-teal-300/70 dark:border-white/20 lg:hidden shadow-md hover:bg-white transition-all cursor-pointer bg-white/95 dark:bg-[#130d20]/95"
+              className="p-2.5 rounded-full glass-pill text-[#1e132c] dark:text-white border border-teal-300/70 dark:border-white/20 xl:hidden shadow-md hover:bg-white transition-all cursor-pointer bg-white/95 dark:bg-[#130d20]/95"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -157,7 +163,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.96 }}
-            className="fixed inset-x-4 top-20 z-40 p-5 rounded-3xl glass-card border border-teal-300/80 dark:border-white/15 shadow-2xl lg:hidden max-w-sm mx-auto bg-white/98 dark:bg-[#130d20]/98"
+            className="fixed inset-x-4 top-20 z-40 p-5 rounded-3xl glass-card border border-teal-300/80 dark:border-white/15 shadow-2xl xl:hidden max-w-sm mx-auto bg-white/98 dark:bg-[#130d20]/98 max-h-[80vh] overflow-y-auto"
           >
             <div className="flex flex-col gap-1.5">
               {navItems.map((item) => {

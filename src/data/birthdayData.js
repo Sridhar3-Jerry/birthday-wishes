@@ -11,12 +11,11 @@ export const birthdayData = {
   senderName: "With all my love",
   
   // Birthday Date (Format: YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS)
-  // Set this to your girlfriend's upcoming birthday!
   birthdayDate: "2026-10-15T00:00:00",
 
   // Music Settings
   music: {
-    audioUrl: "/music/romantic-melody.mp3", // Place your MP3 in public/music/romantic-melody.mp3
+    audioUrl: "/music/romantic-melody.mp3",
     trackTitle: "Romantic Piano Melody",
     artist: "For You"
   },
@@ -30,7 +29,255 @@ export const birthdayData = {
     secondaryCta: "Make a Wish 🎂",
   },
 
-  // 2. Birthday Countdown Section
+  // 2. Open My Heart Interactive Section
+  openHeart: {
+    badge: "❤️ Hidden Deep Inside",
+    prompt: "There is something inside my heart...",
+    buttonText: "Open My Heart ❤️",
+    insideWord: "You ❤️",
+    insideMessage: "In all of time and space, my heart chose you. You are my favorite thought, my deepest comfort, and the sweetest part of every day.",
+  },
+
+  // 3. How Much Do You Mean To Me? Slider Section
+  loveSlider: {
+    badge: "💕 An Infinite Measurement",
+    title: "How Much Do You Mean To Me?",
+    subtitle: "Drag the slider to calculate my love for you...",
+    limitMessage: "Still not enough to explain it ❤️",
+    infinitySymbol: "∞",
+    infinityMessage: "Because my love for you doesn't have a limit.",
+  },
+
+  // 4. Mystery Doors Section
+  mysteryDoors: {
+    badge: "🚪 3 Hidden Treasures",
+    title: "I Have 3 Little Secrets For You...",
+    subtitle: "Pick any door to reveal a special secret stored just for you...",
+    doors: [
+      {
+        id: 1,
+        number: "01",
+        category: "A Memory",
+        preview: "Where time stopped",
+        icon: "✨",
+        title: "The Moment I Knew",
+        content: "I remember looking at you during a quiet moment and realizing: my whole world is right here in front of me. Everything suddenly made sense."
+      },
+      {
+        id: 2,
+        number: "02",
+        category: "A Message",
+        preview: "Written from the soul",
+        icon: "💌",
+        title: "A Lifetime Promise",
+        content: "I promise to hold your hand through every storm, celebrate every victory with you, and love you a little more with each sunrise."
+      },
+      {
+        id: 3,
+        number: "03",
+        category: "A Surprise",
+        preview: "Your Golden Coupon",
+        icon: "🎁",
+        title: "Golden Birthday Pass",
+        content: "Redeemable anytime: Unlimited warm hugs, midnight ice cream dates, free foot rubs, and unconditional love forever and ever!"
+      }
+    ]
+  },
+
+  // 5. Our Universe Cosmic Section
+  ourUniverse: {
+    badge: "🌌 Cosmic Destiny",
+    title: "Our Universe",
+    quote: "Somehow, in this huge universe, our paths crossed.",
+    subquote: "Out of billions of stars and trillions of galaxies, meeting you is the sweetest miracle of my life.",
+    star1Label: "You",
+    star2Label: "Me"
+  },
+
+  // 6. Pull The Ribbon Gift Section
+  ribbonGift: {
+    badge: "🎀 Handcrafted For You",
+    title: "I Wrapped Something For You...",
+    subtitle: "Pull the silky ribbon to untie the magic ✨",
+    ribbonPrompt: "Tap or Pull Ribbon 🎀",
+    revealTitle: "Another year of being amazing. ❤️",
+    revealMessage: "May this year bring you all the warmth, laughter, and high dreams you've ever wished for. You deserve the entire world!"
+  },
+
+  // 7. Catch The Hearts Mini Game
+  catchHeartsGame: {
+    badge: "🎮 Interactive Mini-Game",
+    title: "Catch My Love ❤️",
+    subtitle: "Tap the falling hearts to collect all my love before they drift away!",
+    winTarget: 10,
+    winMessage: "You collected all my love... but somehow I still have so much more to give! ❤️"
+  },
+
+  // 8. Memory Polaroids 3D Stack
+  polaroids: {
+    badge: "📸 Interactive Snapshots",
+    title: "Memory Polaroids",
+    subtitle: "Drag or swipe cards away to flip through our cherished memories...",
+    cards: [
+      {
+        id: 1,
+        image: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80",
+        caption: "The day my heart found its home ❤️",
+        date: "Sweet Beginning",
+        rotate: -3
+      },
+      {
+        id: 2,
+        image: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=800&q=80",
+        caption: "Adventures are always sweeter hand in hand 🌸",
+        date: "First Adventure",
+        rotate: 4
+      },
+      {
+        id: 3,
+        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
+        caption: "Laughing till our stomachs hurt 😂",
+        date: "Unfiltered Joy",
+        rotate: -2
+      },
+      {
+        id: 4,
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+        caption: "Watching the sunset paint the sky for you ✨",
+        date: "Golden Sunset",
+        rotate: 3
+      }
+    ],
+    endMessage: "I'd choose these memories again and again."
+  },
+
+  // 9. Playlist Section
+  playlist: {
+    badge: "🎵 Our Soundtrack",
+    title: "Songs That Remind Me Of You",
+    subtitle: "Melodies that echo the warmth and sweetness of being with you.",
+    tracks: [
+      {
+        id: 1,
+        title: "Can't Help Falling in Love",
+        artist: "Sweet Piano Melody",
+        duration: "3:02",
+        cover: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 2,
+        title: "Perfect For Me",
+        artist: "Acoustic Romance",
+        duration: "4:15",
+        cover: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 3,
+        title: "Until I Found You",
+        artist: "Romantic Chimes",
+        duration: "2:58",
+        cover: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 4,
+        title: "Lover's Lullaby",
+        artist: "Midnight Starlight",
+        duration: "3:30",
+        cover: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80"
+      }
+    ]
+  },
+
+  // 10. Future Memories Bucket List
+  futureMemories: {
+    badge: "✨ Our Unwritten Chapters",
+    title: "Things I Still Want To Do With You...",
+    subtitle: "A little bucket list of dreams waiting for us in the future.",
+    dreams: [
+      {
+        id: 1,
+        icon: "🌅",
+        title: "Watch a sunrise together",
+        tag: "Early Mornings",
+        note: "Wrapped in warm blankets with hot cocoa, watching the world awaken quietly."
+      },
+      {
+        id: 2,
+        icon: "✈️",
+        title: "Travel somewhere new",
+        tag: "Adventures",
+        note: "Getting delightfully lost in new cities, finding cute cafes and capturing memories."
+      },
+      {
+        id: 3,
+        icon: "🌊",
+        title: "Walk beside the sea",
+        tag: "Ocean Breeze",
+        note: "Barefoot in the cool sand with the sound of waves and your hand in mine."
+      },
+      {
+        id: 4,
+        icon: "🍿",
+        title: "Cozy random movie night",
+        tag: "Comfort",
+        note: "Blanket fort, fairy lights, endless popcorn, and falling asleep watching our favorite show."
+      },
+      {
+        id: 5,
+        icon: "🌧️",
+        title: "Get caught in the rain",
+        tag: "Cinematic",
+        note: "Running under shelter laughing without caring about getting soaked in the summer shower."
+      },
+      {
+        id: 6,
+        icon: "🎂",
+        title: "Celebrate 100 more birthdays",
+        tag: "Forever",
+        note: "Growing older, wiser, and deeper in love, blowing out candles year after year."
+      }
+    ],
+    cardPrompt: "This isn't a memory yet... maybe one day it will be."
+  },
+
+  // 11. Message From Future Me (Time Capsule)
+  timeCapsule: {
+    badge: "⏳ Time Capsule",
+    title: "A Message From The Future...",
+    subtitle: "A digital letter locked away for our future selves to discover.",
+    buttonText: "Open Future Message ✉️",
+    quote: "If you're reading this years from now, I hope we're still making each other laugh the same way.",
+    note: "No matter how many seasons pass, my heart will always know its way back to you. Happy Birthday, always."
+  },
+
+  // 12. One Last Question...
+  smileQuestion: {
+    badge: "💗 One Little Check",
+    title: "Before You Leave...",
+    question: "Did I Make You Smile Today?",
+    yesBtn: "YES ❤️",
+    ofCourseBtn: "OF COURSE 🥰",
+    response: "Then my mission is complete. ❤️"
+  },
+
+  // 13. Final Cinematic Ending
+  cinematicEnding: {
+    waitText: "Wait...",
+    moreThing: "One More Thing.",
+    finalBday: "Happy Birthday, My Love ❤️",
+    message: "I hope this little corner of the internet reminds you of how incredibly special, cherished, and loved you are.",
+    closing: "Until our next memory... ❤️"
+  },
+
+  // 14. Easter Eggs
+  easterEggs: {
+    logoClickCount: 5,
+    logoMessage: "Okay... you found me. ❤️ (I love you more than code and words can say!)",
+    secretCode: "love",
+    starMessage: "You discovered the secret starlight ✨ My wish upon this star is you, always."
+  },
+
+  // Existing sections
   countdown: {
     badge: "⏳ Counting Down The Moments",
     waitingTitle: "Something Special Is Waiting For You...",
@@ -39,7 +286,6 @@ export const birthdayData = {
     celebrationSubtitle: "May your day be overflowing with laughter, sweet surprises, and unconditional love.",
   },
 
-  // 3. Love Letter Section
   loveLetter: {
     badge: "💌 From The Depths Of My Heart",
     title: "A Little Message From My Heart",
@@ -54,7 +300,6 @@ export const birthdayData = {
     signature: "Your Love ❤️"
   },
 
-  // 4. Memory Timeline Section
   memories: [
     {
       id: 1,
@@ -103,7 +348,6 @@ export const birthdayData = {
     }
   ],
 
-  // 5. Photo Gallery Section
   gallery: {
     badge: "📸 Capturing Our Happiness",
     title: "Our Little World",
@@ -160,7 +404,6 @@ export const birthdayData = {
     ]
   },
 
-  // 6. Reasons Why I Love You Section
   reasons: [
     {
       id: 1,
@@ -212,7 +455,6 @@ export const birthdayData = {
     }
   ],
 
-  // 7. Interactive Birthday Cake Section
   cakeSection: {
     badge: "🎂 Make A Special Wish",
     title: "Blow Out The Candles",
@@ -223,7 +465,6 @@ export const birthdayData = {
     candleCount: 3
   },
 
-  // 8. Surprise Section
   surprise: {
     badge: "💝 One Final Secret",
     buttonText: "I Have One More Surprise For You 💝",
@@ -233,7 +474,6 @@ export const birthdayData = {
     giftIcon: "🎁"
   },
 
-  // 9. Final Birthday Message Section
   finalMessage: {
     badge: "🌹 Forever And Always",
     title: "Happy Birthday, My Beautiful Girl ❤️",
@@ -243,7 +483,6 @@ export const birthdayData = {
     subscript: "Today, tomorrow, and for all our tomorrows."
   },
 
-  // Footer Details
   footer: {
     madeWith: "Crafted with infinite love, just for you",
     year: "2026"
