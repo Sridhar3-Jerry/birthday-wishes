@@ -1,0 +1,39 @@
+/* App specific animations and romantic helpers */
+@keyframes heartPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.animate-heart-pulse {
+  animation: heartPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(3deg);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 5s infinite ease-in-out;
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
