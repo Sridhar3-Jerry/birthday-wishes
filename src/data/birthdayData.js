@@ -7,11 +7,11 @@
 
 export const birthdayData = {
   // Personal Details
-  recipientName: "My Dearest",
+  recipientName: "My Dearest Janu",
   senderName: "With all my love",
   
   // Birthday Date (Format: YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS)
-  birthdayDate: "2026-10-15T00:00:00",
+  birthdayDate: "2026-10-24T00:00:00",
 
   // Music Settings
   music: {
@@ -42,7 +42,7 @@ export const birthdayData = {
   loveSlider: {
     badge: "💕 An Infinite Measurement",
     title: "How Much Do You Mean To Me?",
-    subtitle: "Drag the slider to calculate my love for you...",
+    subtitle: "Watch as my love for you measures beyond the infinite universe...",
     limitMessage: "Still not enough to explain it ❤️",
     infinitySymbol: "∞",
     infinityMessage: "Because my love for you doesn't have a limit.",
@@ -117,7 +117,7 @@ export const birthdayData = {
   polaroids: {
     badge: "📸 Interactive Snapshots",
     title: "Memory Polaroids",
-    subtitle: "Drag or swipe cards away to flip through our cherished memories...",
+    subtitle: "Click any Polaroid to flip it over and read our private handwritten memory...",
     cards: [
       {
         id: 1,
@@ -459,10 +459,11 @@ export const birthdayData = {
     badge: "🎂 Make A Special Wish",
     title: "Blow Out The Candles",
     subtitle: "Click each candle or press the button to blow them out, make your heartfelt wish, and start the celebration!",
-    instructions: "Tap on the flames to extinguish each candle ✨",
-    wishGrantedMessage: "Your wish is waiting to come true... ❤️",
-    wishSubtitle: "May all your secret dreams and highest hopes bloom into reality this year!",
-    candleCount: 3
+    instructions: "Tap on the flames or press the button to blow out the candles ✨",
+    wishGrantedMessage: "Your wish is waiting to come true, Janu! ❤️",
+    wishSubtitle: "May all your secret dreams and highest hopes bloom into reality this year, Janu!",
+    candleCount: 3,
+    cakeName: "Janu"
   },
 
   surprise: {

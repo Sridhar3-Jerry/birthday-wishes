@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { Heart, Sparkles, X, ChevronLeft, ChevronRight, Eye, Compass, RotateCw } from 'lucide-react';
+import CircularCarousel from './CircularCarousel';
 import { birthdayData } from '../data/birthdayData';
 import { useTheme } from '../context/ThemeContext';
 
@@ -8,6 +9,18 @@ export default function PhotoGallery() {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(null);
   const photos = birthdayData.gallery.photos;
   const { isDark } = useTheme();
+
+  // Map photos to CircularCarousel item format
+  const carouselItems = useMemo(() => {
+    return photos.map(photo => ({
+      src: photo.image,
+      alt: photo.caption || photo.title,
+      title: photo.title,
+      subtitle: photo.category ? `🌸 ${photo.category}` : '❤️ Special Memory',
+      caption: photo.caption,
+      category: photo.category
+    }));
+  }, [photos]);
 
   const handleNext = useCallback(() => {
     if (selectedPhotoIndex !== null) {
@@ -34,10 +47,10 @@ export default function PhotoGallery() {
   }, [selectedPhotoIndex, handleNext, handlePrev]);
 
   return (
-    <section id="gallery" className="py-24 px-4 relative z-10">
-      <div className="max-w-6xl mx-auto">
+    <section id="gallery" className="py-20 px-3 sm:px-6 relative z-10 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
         {/* Section Heading */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-8">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -69,56 +82,53 @@ export default function PhotoGallery() {
           </motion.p>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {photos.map((photo, index) => (
-            <motion.div
-              key={photo.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.6, delay: index * 0.08 }}
-              className={`relative rounded-3xl overflow-hidden glass-card cursor-pointer group shadow-xl border border-teal-200/80 dark:border-white/10 ${photo.span || ''}`}
-              onClick={() => setSelectedPhotoIndex(index)}
-            >
-              <div className="relative w-full h-72 sm:h-80 overflow-hidden">
-                <img
-                  src={photo.image}
-                  alt={photo.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                  loading="lazy"
-                />
+        {/* 3D Panorama Carousel Container */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.25 }}
+          className="relative w-full rounded-3xl p-3 sm:p-6 bg-gradient-to-b from-white/40 to-white/10 dark:from-white/5 dark:to-transparent border border-white/60 dark:border-white/10 shadow-2xl backdrop-blur-sm"
+        >
+          {/* Ambient Glows */}
+          <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-72 h-72 bg-teal-400/15 dark:bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-72 h-72 bg-pink-400/15 dark:bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
 
-                {/* Peacock & Rose Hover Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#140b24]/90 via-[#0d9488]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6">
-                  <div className="flex justify-between items-center">
-                    <span className="px-3.5 py-1 rounded-full bg-teal-600/90 backdrop-blur-md text-white text-xs font-bold shadow-md">
-                      {photo.category}
-                    </span>
-                    <div className="w-9 h-9 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center text-white">
-                      <Maximize2 className="w-4 h-4" />
-                    </div>
-                  </div>
+          {/* Circular Carousel Component - Exclusively Panorama Mode */}
+          <div className="w-full h-[520px] sm:h-[620px] lg:h-[660px] relative">
+            <CircularCarousel
+              items={carouselItems}
+              preset="panorama"
+              intro="rise"
+              cardWidth={295}
+              aspectRatio={1.15}
+              gap={28}
+              speed={12}
+              draggable={true}
+              momentum={0.65}
+              snap={true}
+              pauseOnHover={true}
+              focusOnClick={true}
+              parallax={0.35}
+              stretch={0.4}
+              depthFade={isDark ? 0.6 : 0.45}
+              fadeColor={isDark ? '#090514' : '#f8f4ff'}
+              cornerRadius={18}
+              captions={true}
+              onItemClick={(item, index) => {
+                setSelectedPhotoIndex(index);
+              }}
+            />
+          </div>
 
-                  <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    <div className="flex items-center gap-1.5 text-pink-300 text-xs font-bold mb-1">
-                      <Heart className="w-3.5 h-3.5 fill-pink-400 text-pink-400" />
-                      <span>Special Memory</span>
-                    </div>
-                    <h3 className="text-white font-serif text-xl sm:text-2xl font-bold mb-1">
-                      {photo.title}
-                    </h3>
-                    <p className="text-teal-100 text-xs sm:text-sm line-clamp-2 font-medium">
-                      {photo.caption}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+          {/* Interactive Guidance Bar */}
+          <div className="flex items-center justify-center gap-2 pt-3 pb-1 text-xs text-[#64748b] dark:text-[#94a3b8] font-medium text-center">
+            <RotateCw className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400 animate-spin" style={{ animationDuration: '8s' }} />
+            <span>Drag or flick to rotate 3D panorama • Click any photo for full view</span>
+          </div>
+        </motion.div>
 
-        {/* Lightbox Modal */}
+        {/* Fullscreen Lightbox Modal */}
         <AnimatePresence>
           {selectedPhotoIndex !== null && (
             <motion.div
@@ -164,19 +174,24 @@ export default function PhotoGallery() {
               {/* Lightbox Image & Caption */}
               <motion.div
                 key={selectedPhotoIndex}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                className="max-w-4xl max-h-[85vh] w-full flex flex-col items-center justify-center"
+                initial={{ opacity: 0, scale: 0.92, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.92, y: 20 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 250 }}
+                className="max-w-3xl max-h-[88vh] w-full flex flex-col items-center justify-center"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/20 max-h-[70vh] w-auto">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/20 max-h-[68vh] w-auto bg-black/40">
                   <img
                     src={photos[selectedPhotoIndex].image}
                     alt={photos[selectedPhotoIndex].title}
-                    className="max-h-[70vh] w-auto object-contain rounded-2xl"
+                    className="max-h-[68vh] w-auto max-w-full object-contain rounded-2xl"
                   />
+                  {photos[selectedPhotoIndex].category && (
+                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-teal-600/90 backdrop-blur-md text-white text-xs font-bold shadow-md">
+                      {photos[selectedPhotoIndex].category}
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-4 text-center px-4 max-w-xl">

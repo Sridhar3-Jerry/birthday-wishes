@@ -179,3 +179,43 @@ html.dark .text-gradient-rose {
   animation: flicker 1.8s infinite ease-in-out;
   transform-origin: bottom center;
 }
+
+/* Smooth Diagonal View Transition (Left to Right) */
+::view-transition-group(root) {
+  animation-duration: 0.95s;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none !important;
+  mix-blend-mode: normal !important;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 999999;
+}
+
+@keyframes diagonalSweep {
+  0% {
+    transform: translate(-100%, -100%) rotate(45deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(100%, 100%) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+.animate-diagonal-sweep {
+  animation: diagonalSweep 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}

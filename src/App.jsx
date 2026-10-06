@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { ThemeProvider } from './context/ThemeContext';
+import SwarmCursor from './components/SwarmCursor';
 import CustomCursor from './components/CustomCursor';
 import BackgroundEffects from './components/BackgroundEffects';
 import EasterEggs from './components/EasterEggs';
@@ -47,6 +48,19 @@ export default function App() {
     <ThemeProvider>
       <div className="relative min-h-screen font-sans selection:bg-teal-200 selection:text-teal-950 dark:selection:bg-teal-800 dark:selection:text-teal-100 overflow-x-hidden transition-colors duration-500">
         
+        {/* 7 Colorful Hearts Swarm Cursor from React Bits - Fluid balanced speed & miniature on mobile */}
+        <SwarmCursor 
+          count={7} 
+          size={13} 
+          mobileSize={5}
+          speed={1.6} 
+          spread={55} 
+          mobileSpread={24}
+          wander={0.16} 
+          trail={0.6} 
+          scatterOnClick={true} 
+        />
+
         {/* Custom Romantic Sparkle & Glow Cursor */}
         <CustomCursor />
 
