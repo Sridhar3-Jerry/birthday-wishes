@@ -33,7 +33,66 @@ export const birthdayData = {
   friendPage: {
     recipientName: "Bestie",
     title: "Happy Birthday, Bestie! 🎉",
-    subtitle: "Wishing you a year filled with big laughs, unforgettable adventures, great food, and endless happiness!"
+    subtitle: "Wishing you a year filled with big laughs, unforgettable adventures, great food, and endless happiness!",
+    galleryBadge: "📸 Squad Scrapbook",
+    galleryTitle: "Our Favorite Memories Together",
+    gallerySubtitle: "Some of the best road trips, late night food runs, and unforgettable laughs captured in time.",
+    photos: [
+      {
+        id: "p1",
+        title: "Spontaneous Road Trips 🚗",
+        category: "Adventures",
+        caption: "Blasting our favorite songs with the windows down and laughing at wrong turns.",
+        image: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=800&q=80",
+        date: "Summer Adventures",
+        likes: 24
+      },
+      {
+        id: "p2",
+        title: "Coffee & 3-Hour Gossip ☕",
+        category: "Hangouts",
+        caption: "'Let's grab a quick 10-minute coffee' — 3 hours later still talking about life.",
+        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
+        date: "Weekend Routine",
+        likes: 19
+      },
+      {
+        id: "p3",
+        title: "Birthday Bash Celebrations 🎂",
+        category: "Celebrations",
+        caption: "Cake everywhere, ridiculous party hats, and unhinged laughing fits.",
+        image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80",
+        date: "Party Times",
+        likes: 31
+      },
+      {
+        id: "p4",
+        title: "Golden Hour Vibes 🌅",
+        category: "Adventures",
+        caption: "Chasing sunsets and taking 50 photos until we finally got the perfect one.",
+        image: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=800&q=80",
+        date: "Sunset Chasers",
+        likes: 28
+      },
+      {
+        id: "p5",
+        title: "Uncontrollable Laughs 😂",
+        category: "Candids",
+        caption: "When somebody told a terrible joke that nobody else understood except us.",
+        image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80",
+        date: "Pure Chaos",
+        likes: 37
+      },
+      {
+        id: "p6",
+        title: "Late Night Street Food 🍕",
+        category: "Hangouts",
+        caption: "Midnight cravings, spicy street snacks, and deep conversations under the stars.",
+        image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80",
+        date: "Midnight Squad",
+        likes: 22
+      }
+    ]
   },
 
   // 1. Hero / Welcome Section
