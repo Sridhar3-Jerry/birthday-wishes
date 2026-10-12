@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useInView, useMotionValue, useTransform, animate, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles, Infinity as InfinityIcon, RotateCcw, Activity } from 'lucide-react';
+import { Heart, Sparkles, Infinity as InfinityIcon, Activity } from 'lucide-react';
 import { birthdayData } from '../data/birthdayData';
 import { triggerRomanticConfetti } from '../utils/confetti';
 import { useTheme } from '../context/ThemeContext';
@@ -59,7 +59,7 @@ export default function LoveSlider() {
     setStatus('holding');
     setCurrentStage('holding');
 
-    // 1-second hold
+    // 1-second hold for calibration
     timeoutRef.current = setTimeout(() => {
       setStatus('measuring');
 
@@ -75,6 +75,11 @@ export default function LoveSlider() {
             setIsInfinity(true);
             setStatus('complete');
             triggerRomanticConfetti();
+
+            // Once infinity is shown, wait 5 seconds then restart automatically
+            timeoutRef.current = setTimeout(() => {
+              startAutomatedMeter();
+            }, 5000);
           }, 350);
         }
       });
@@ -94,10 +99,6 @@ export default function LoveSlider() {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
-
-  const handleReplay = () => {
-    startAutomatedMeter();
-  };
 
   const getStageText = () => {
     switch (currentStage) {
@@ -188,9 +189,7 @@ export default function LoveSlider() {
               transition={{
                 rotate: { duration: isInfinity ? 2 : 3.5, repeat: Infinity, ease: 'easeInOut' }
               }}
-              className="relative cursor-pointer select-none"
-              onClick={handleReplay}
-              title="Click to recalculate"
+              className="relative select-none"
             >
               {/* Smooth GPU Aura Glow */}
               <motion.div 
@@ -252,7 +251,7 @@ export default function LoveSlider() {
           </div>
 
           {/* Automatic Glowing Progress Meter */}
-          <div className="max-w-md mx-auto relative px-2 mb-6">
+          <div className="max-w-md mx-auto relative px-2 mb-2">
             <div className="w-full h-4 bg-slate-100 dark:bg-slate-800/90 rounded-full overflow-hidden p-0.5 border border-pink-200/80 dark:border-teal-500/30 shadow-inner relative">
               {/* Animated Smooth Progress Fill */}
               <motion.div
@@ -273,25 +272,6 @@ export default function LoveSlider() {
               <span className={isInfinity ? "text-teal-600 dark:text-teal-300 font-extrabold transition-colors" : ""}>100% (Infinite ∞)</span>
             </div>
           </div>
-
-          {/* Replay Button */}
-          {status === 'complete' && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="mt-4"
-            >
-              <button
-                type="button"
-                onClick={handleReplay}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold text-teal-800 dark:text-teal-200 bg-teal-50 hover:bg-teal-100 dark:bg-teal-950/50 dark:hover:bg-teal-900/60 border border-teal-300 dark:border-teal-700 shadow-sm transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
-              >
-                <RotateCcw className="w-4 h-4 text-teal-600 dark:text-teal-400" />
-                <span>Calculate Again ✨</span>
-              </button>
-            </motion.div>
-          )}
         </motion.div>
       </div>
     </section>

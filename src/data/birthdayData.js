@@ -20,6 +20,22 @@ export const birthdayData = {
     artist: "For You"
   },
 
+  // Secret Love Gateway & Friend Page Configuration
+  secretGate: {
+    passwords: ["love", "143", "janu", "mylove", "secret"],
+    defaultPassword: "love",
+    hint: "What this entire secret universe is all about... 4 letters: 'love' ❤️",
+    portalTitle: "A Secret World Lies Beyond 🗝️",
+    portalSubtitle: "To anyone else, this is a happy birthday greeting. But for the one who holds my heart... enter our secret passcode.",
+    buttonText: "Unlock Secret Love World 🔐"
+  },
+
+  friendPage: {
+    recipientName: "Bestie",
+    title: "Happy Birthday, Bestie! 🎉",
+    subtitle: "Wishing you a year filled with big laughs, unforgettable adventures, great food, and endless happiness!"
+  },
+
   // 1. Hero / Welcome Section
   hero: {
     badge: "✨ A Special Celebration For Someone Extraordinary",

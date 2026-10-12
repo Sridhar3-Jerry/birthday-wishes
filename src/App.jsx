@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
 import { ThemeProvider } from './context/ThemeContext';
+import FriendBirthdayPage from './components/FriendBirthdayPage';
+import LoveIntroScreen from './components/LoveIntroScreen';
 import SwarmCursor from './components/SwarmCursor';
 import CustomCursor from './components/CustomCursor';
 import BackgroundEffects from './components/BackgroundEffects';
@@ -34,7 +37,22 @@ import CinematicEnding from './components/CinematicEnding';
 import Footer from './components/Footer';
 
 export default function App() {
+  const [currentMode, setCurrentMode] = useState('friend'); // 'friend' | 'romantic'
   const [logoClicks, setLogoClicks] = useState(0);
+  const [showIntro, setShowIntro] = useState(false);
+  const [isIntroOpening, setIsIntroOpening] = useState(false);
+
+  // Prevent background scrolling while romantic intro is showing
+  useEffect(() => {
+    if (showIntro) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showIntro]);
 
   const handleLogoClick = () => {
     setLogoClicks((prev) => prev + 1);
@@ -44,43 +62,96 @@ export default function App() {
     setLogoClicks(0);
   };
 
+  const handleReplayIntro = () => {
+    setIsIntroOpening(false);
+    setShowIntro(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Called when secret password is successfully entered at the end of Friend page
+  const handleUnlockSecret = () => {
+    setCurrentMode('romantic');
+    setShowIntro(true);
+    setIsIntroOpening(false);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  // Called to quickly return to Friend page disguise
+  const handleReturnToFriend = () => {
+    setCurrentMode('friend');
+    setShowIntro(false);
+    setIsIntroOpening(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <ThemeProvider>
-      <div className="relative min-h-screen font-sans selection:bg-teal-200 selection:text-teal-950 dark:selection:bg-teal-800 dark:selection:text-teal-100 overflow-x-hidden transition-colors duration-500">
-        
-        {/* 7 Colorful Hearts Swarm Cursor from React Bits - Fluid balanced speed & miniature on mobile */}
-        <SwarmCursor 
-          count={7} 
-          size={13} 
-          mobileSize={5}
-          speed={1.6} 
-          spread={55} 
-          mobileSpread={24}
-          wander={0.16} 
-          trail={0.6} 
-          scatterOnClick={true} 
-        />
+      {currentMode === 'friend' ? (
+        <FriendBirthdayPage onUnlockSecret={handleUnlockSecret} />
+      ) : (
+        <div className="relative min-h-screen font-sans selection:bg-teal-200 selection:text-teal-950 dark:selection:bg-teal-800 dark:selection:text-teal-100 overflow-x-hidden transition-colors duration-500">
+          
+          {/* Fullscreen Romantic Love Intro Animation */}
+          <AnimatePresence>
+            {showIntro && (
+              <LoveIntroScreen
+                onStartOpen={() => setIsIntroOpening(true)}
+                onComplete={() => {
+                  setShowIntro(false);
+                  setIsIntroOpening(false);
+                }}
+              />
+            )}
+          </AnimatePresence>
 
-        {/* Custom Romantic Sparkle & Glow Cursor */}
-        <CustomCursor />
+          {/* 7 Colorful Hearts Swarm Cursor from React Bits - Fluid balanced speed & miniature on mobile */}
+          <SwarmCursor 
+            count={7} 
+            size={13} 
+            mobileSize={5}
+            speed={1.6} 
+            spread={55} 
+            mobileSpread={24}
+            wander={0.16} 
+            trail={0.6} 
+            scatterOnClick={true} 
+          />
 
-        {/* Secret Easter Egg Event Manager */}
-        <EasterEggs 
-          logoClicks={logoClicks} 
-          onResetLogoClicks={handleResetLogoClicks} 
-        />
+          {/* Custom Romantic Sparkle & Glow Cursor */}
+          <CustomCursor />
 
-        {/* Ambient Floating Hearts & Gradients */}
-        <BackgroundEffects />
+          {/* Secret Easter Egg Event Manager */}
+          <EasterEggs 
+            logoClicks={logoClicks} 
+            onResetLogoClicks={handleResetLogoClicks} 
+          />
 
-        {/* Floating Glass Navigation */}
-        <Navbar onLogoClick={handleLogoClick} />
+          {/* Ambient Floating Hearts & Gradients */}
+          <BackgroundEffects />
+
+          {/* Floating Glass Navigation with Disguise / Return to Friend option */}
+          <Navbar 
+            onLogoClick={handleLogoClick} 
+            onReplayIntro={handleReplayIntro} 
+            onReturnToFriend={handleReturnToFriend}
+          />
 
         {/* Floating Ambient Music Control */}
         <FloatingMusicPlayer />
 
-        {/* Main Experience Journey */}
-        <main className="relative z-10 w-full overflow-hidden">
+        {/* Main Experience Journey with Cinematic Slow Reveal on Opening */}
+        <motion.main 
+          className="relative z-10 w-full overflow-hidden"
+          animate={{
+            scale: isIntroOpening ? [0.96, 1] : 1,
+            filter: isIntroOpening ? ['blur(8px)', 'blur(0px)'] : 'blur(0px)',
+            opacity: isIntroOpening ? [0.5, 1] : 1,
+          }}
+          transition={{
+            duration: 2.1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
           
           {/* 1. Hero / Welcome Section */}
           <HeroSection />
@@ -158,11 +229,12 @@ export default function App() {
 
           {/* 21. Cinematic Ending Sequence */}
           <CinematicEnding />
-        </main>
+        </motion.main>
 
         {/* Footer */}
         <Footer />
       </div>
+      )}
     </ThemeProvider>
   );
 }

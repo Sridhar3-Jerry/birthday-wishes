@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Sparkles, Lock, Unlock, RotateCcw, Key, Sparkle, ShieldCheck } from 'lucide-react';
 import { birthdayData } from '../data/birthdayData';
 import { triggerHeartBurst, triggerRomanticConfetti } from '../utils/confetti';
 import FloatingParticles from './FloatingParticles';
+import CupidBowArrow from './CupidBowArrow';
 
 export default function OpenMyHeart() {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [impactFlash, setImpactFlash] = useState(false);
+  const heartRef = useRef(null);
 
   const playHeartbeatSound = () => {
     try {
@@ -38,14 +41,19 @@ export default function OpenMyHeart() {
   };
 
   const handleOpenHeart = () => {
+    setImpactFlash(true);
     playHeartbeatSound();
-    setIsOpen(true);
     triggerHeartBurst();
     triggerRomanticConfetti();
+    setTimeout(() => {
+      setIsOpen(true);
+      setImpactFlash(false);
+    }, 380);
   };
 
   const handleCloseHeart = () => {
     setIsOpen(false);
+    setImpactFlash(false);
   };
 
   return (
@@ -102,7 +110,7 @@ export default function OpenMyHeart() {
         </motion.p>
 
         {/* Interactive Center Stage */}
-        <div className="relative py-4 flex flex-col items-center justify-center min-h-[420px]">
+        <div className="relative py-4 flex flex-col items-center justify-center min-h-[460px] w-full">
           
           <AnimatePresence mode="wait">
             {!isOpen ? (
@@ -113,11 +121,21 @@ export default function OpenMyHeart() {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.85, opacity: 0, filter: 'blur(10px)' }}
                 transition={{ duration: 0.5 }}
-                className="flex flex-col items-center w-full"
+                className="relative flex flex-col items-center justify-center w-full min-h-[440px]"
               >
-                {/* 3D Heart Locket Chamber */}
+                {/* 1. Left-Side Diagonal Cupid's Bow Station */}
+                <div className="w-full md:w-auto md:absolute md:left-2 lg:left-6 md:bottom-2 z-20 flex flex-col items-center md:items-start mb-6 md:mb-0">
+                  <CupidBowArrow 
+                    targetRef={heartRef}
+                    onHit={handleOpenHeart} 
+                    isLocked={!isOpen} 
+                  />
+                </div>
+
+                {/* 2. Centered 3D Heart Locket Chamber (Stays Centered!) */}
                 <div 
-                  className="relative flex items-center justify-center cursor-pointer group mb-10"
+                  ref={heartRef}
+                  className="relative flex items-center justify-center cursor-pointer group z-10 my-4"
                   onClick={handleOpenHeart}
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
@@ -219,36 +237,37 @@ export default function OpenMyHeart() {
 
                     {/* Golden Padlock Badge with Glowing Keyhole */}
                     <motion.div
+                      animate={{
+                        scale: impactFlash ? [1, 1.45, 0] : 1,
+                        rotate: impactFlash ? [0, 25, 90] : 0,
+                      }}
                       whileHover={{ scale: 1.15, rotate: 10 }}
                       className="absolute -top-1 -right-1 w-11 h-11 rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-200 border-2 border-white shadow-lg flex items-center justify-center text-amber-950 z-20"
                     >
-                      <Lock className="w-5 h-5 text-amber-950" />
+                      {impactFlash ? (
+                        <Unlock className="w-5 h-5 text-amber-950 animate-ping" />
+                      ) : (
+                        <Lock className="w-5 h-5 text-amber-950" />
+                      )}
                     </motion.div>
+
+                    {/* Arrow Impact Radiant Flash */}
+                    {impactFlash && (
+                      <motion.div
+                        initial={{ scale: 0.5, opacity: 1 }}
+                        animate={{ scale: 2.2, opacity: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="absolute inset-0 rounded-full bg-gradient-to-tr from-amber-300 via-rose-300 to-white blur-xl pointer-events-none z-30"
+                      />
+                    )}
 
                     {/* Secret Key Hint Badge at Bottom */}
                     <div className="absolute -bottom-2 px-3 py-0.5 rounded-full bg-black/70 backdrop-blur-md border border-white/30 text-[10px] font-bold text-amber-300 tracking-wider flex items-center gap-1 shadow-md">
                       <Key className="w-3 h-3 text-amber-400" />
-                      <span>TAP TO UNLOCK</span>
+                      <span>AIM & SHOOT TO UNLOCK</span>
                     </div>
                   </motion.div>
                 </div>
-
-                {/* Primary Unlock CTA Button */}
-                <motion.button
-                  onClick={handleOpenHeart}
-                  whileHover={{ scale: 1.05, boxShadow: '0 20px 40px -10px rgba(244, 63, 94, 0.6)' }}
-                  whileTap={{ scale: 0.96 }}
-                  className="group relative px-8 sm:px-10 py-4 rounded-full text-white font-bold text-base sm:text-lg shadow-xl cursor-pointer overflow-hidden border border-white/50 bg-gradient-to-r from-rose-500 via-pink-500 to-teal-500"
-                >
-                  {/* Shimmer light sweep */}
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
-                  
-                  <div className="relative z-10 flex items-center justify-center gap-2.5">
-                    <Sparkles className="w-5 h-5 text-amber-300 animate-spin-slow" />
-                    <span>{birthdayData.openHeart.buttonText}</span>
-                    <Heart className="w-5 h-5 fill-white text-white group-hover:scale-125 transition-transform" />
-                  </div>
-                </motion.button>
               </motion.div>
             ) : (
               /* OPENED STATE: ENCHANTING REVEAL LOCKET CARD */
@@ -355,7 +374,7 @@ export default function OpenMyHeart() {
                     className="w-full sm:w-auto px-5 py-3 rounded-full bg-white dark:bg-purple-950/70 hover:bg-slate-50 text-[#1e132c] dark:text-slate-200 font-bold text-sm border border-teal-200 dark:border-white/15 cursor-pointer flex items-center justify-center gap-1.5 shadow-xs"
                   >
                     <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
-                    <span>Lock Back Inside 🔒</span>
+                    <span>Lock & Shoot Bow Again 🏹</span>
                   </motion.button>
                 </div>
               </motion.div>
